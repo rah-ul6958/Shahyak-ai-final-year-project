@@ -1,0 +1,9 @@
+# Place NDMA/SDMA PDF documents here
+#
+# Supported formats: PDF
+# The ingestion script will process all PDFs in this directory.
+#
+# Place documents like:
+# - NDMA_Flood_Protocol_2019.pdf
+# - NDMA_Earthquake_Guidelines.pdf
+# - SDMA_State_Disaster_Response_Plan.pdf

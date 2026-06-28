@@ -1,0 +1,49 @@
+# FastAPI & Server
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+
+# LangGraph & LangChain
+langgraph>=0.1.0
+langchain-core>=0.1.0
+
+# LLM & Embeddings
+ollama>=0.1.0
+fastembed>=0.2.0
+sentence-transformers>=2.5.0
+
+# Vector Database
+chromadb>=0.4.0
+
+# Database
+duckdb>=0.9.0
+
+# Voice
+openai-whisper>=20231117
+
+# Geospatial
+httpx>=0.26.0
+
+# Validation
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Logging
+structlog>=24.1.0
+
+# Async
+aiofiles>=23.2.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Linting
+ruff>=0.2.0
+mypy>=1.8.0
+
+# Type stubs
+types-aiofiles>=23.2.0
+types-requests>=2.31.0

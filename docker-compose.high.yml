@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+        limits:
+          memory: 32G
+
+  osrm:
+    image: osrm/osrm-backend:latest
+    volumes:
+      - ./data/maps/osrm:/data
+    command: osrm-routed --algorithm mld /data/uttarakhand.osrm
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    environment:
+      - HARDWARE_PROFILE=high
+      - OLLAMA_HOST=http://ollama:11434
+      - OSRM_HOST=http://osrm:5000
+      - CHROMA_PATH=/app/data/chroma_db
+      - WHISPER_MODEL=small
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+      - osrm
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
